@@ -1,7 +1,7 @@
 # CLAUDE.md - Golang Project Guidelines
 
 ## Stack
-`github.com/getevo/evo/v2` | `gorm.io/gorm` | `github.com/getevo/restify` | MariaDB | NATS | REDIS (Universal connector to support both single instance and cluster)
+`github.com/getevo/evo/v2` | `gorm.io/gorm` | `github.com/getevo/restify` | MariaDB | NATS + JetStream | REDIS (Universal connector to support both single instance and cluster)
 
 ## Claude Rules
 - Follow existing patterns (even if suboptimal) | No refactor unless requested | Consistency over cleverness | Ask before new abstractions
