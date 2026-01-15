@@ -19,7 +19,7 @@
 ```
 cmd/app/main.go                    # Entrypoint
 apps/app_name/{app,models,controller,functions,serializer}.go
-library/                           # Shared utilities
+pkg/                           # Shared packages
 docs/                              # Documentation
 config.yml
 ```
