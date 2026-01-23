@@ -228,3 +228,44 @@ Document in `docs/tasks.md`
 | `*T` | NULL | 500 | `errors.Internal` |
 
 **GORM Hooks**: `BeforeCreate` `AfterCreate` `BeforeUpdate` `AfterUpdate` `BeforeSave` `AfterSave` `BeforeDelete` `AfterDelete` `AfterFind`
+
+
+## Command-Line Arguments
+
+Use `github.com/getevo/evo/v2/lib/args` for CLI args. [Full docs](https://github.com/getevo/evo/blob/master/docs/args.md)
+
+```go
+import "github.com/getevo/evo/v2/lib/args"
+
+// ./app --config /path/to/config.yml --debug --port 8080
+args.Exists("--debug")           // true if flag present
+args.Get("--config").String()    // "/path/to/config.yml"
+args.Get("--port").Int()         // 8080
+```
+
+## HTTP API Calls
+
+**Always use `github.com/getevo/evo/v2/lib/curl` for HTTP requests.** [Full docs](https://raw.githubusercontent.com/getevo/evo/refs/heads/master/docs/curl.md)
+
+```go
+import "github.com/getevo/evo/v2/lib/curl"
+
+// Requests - options can be combined in any order
+resp, err := curl.Get(url)
+resp, err := curl.Get(url, curl.BasicAuth{Username: "u", Password: "p"}, 30*time.Second)
+resp, err := curl.Post(url, curl.BodyJSON(payload), curl.Header{"X-Key": []string{"val"}})
+resp, err := curl.Post(url, curl.Param{"key": "value"})  // form data
+resp, err := curl.Put(url, curl.BodyRaw("raw content"))  // string, []byte, or io.Reader
+// Also: Patch, Delete, Head, Options, Do("METHOD", url, opts...)
+
+// Response handling
+if resp.Status() >= 400 { return err }
+resp.Dot("data.items.0.name").String()  // JSON dot notation
+resp.Dot("meta.total").Int()            // .Float(), .Bool(), .Array(), .Map()
+resp.ToJSON(&result)                    // unmarshal to struct
+resp.String()                           // raw body as string
+resp.Bytes()                            // raw body as []byte
+
+// Debug: curl.Debug = true | resp.Dump() | resp.Cost() (ms)
+```
+
