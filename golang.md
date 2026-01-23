@@ -269,3 +269,50 @@ resp.Bytes()                            // raw body as []byte
 // Debug: curl.Debug = true | resp.Dump() | resp.Cost() (ms)
 ```
 
+## File Operations
+
+Use `github.com/getevo/evo/v2/lib/gpath` for file/path operations. [Full docs](https://github.com/getevo/evo/blob/master/lib/gpath/README.md)
+
+```go
+import "github.com/getevo/evo/v2/lib/gpath"
+
+// Path utilities
+gpath.WorkingDir()                          // current working directory
+gpath.Parent("/path/to/file.txt")           // "/path/to"
+gpath.IsDirExist("/path"), gpath.IsFileExist("/path/file.txt")
+gpath.IsDirEmpty("/path")
+
+// File operations
+gpath.Write("/path/file.txt", []byte("content"))
+gpath.Append("/path/file.txt", []byte("more"))
+content, _ := gpath.Read("/path/file.txt")  // returns []byte
+gpath.ReadJSON("/path/file.json", &obj)     // unmarshal JSON file
+gpath.WriteJSON("/path/file.json", obj)     // marshal to JSON file
+
+// Directory operations
+gpath.MakePath("/path/to/nested/dir")       // create nested dirs
+gpath.CopyDir("/src", "/dst")
+gpath.CopyFile("/src/file", "/dst/file")
+```
+
+## Validation
+
+Use `validation` struct tags. [Full docs](https://github.com/getevo/evo/blob/master/docs/validation.md)
+
+```go
+import "github.com/getevo/evo/v2/lib/validation"
+
+type User struct {
+    Email  string `validation:"required,email"`
+    Age    int    `validation:">=18,<120"`
+    Phone  string `validation:"phone"`
+    URL    string `validation:"url"`
+}
+
+err := validation.Struct(user)              // validate all fields
+err := validation.StructNonZeroFields(user) // validate non-empty only (for updates)
+err := validation.Value(email, "required,email") // validate single value
+
+// Common tags: required, email, url, phone, uuid, ip, ip4, ip6, cidr, mac,
+// alpha, alphanumeric, json, creditcard, len>=N, >=N, <N, unique, fk, enum
+```
