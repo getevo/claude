@@ -243,7 +243,7 @@ args.Get("--config").String()    // "/path/to/config.yml"
 args.Get("--port").Int()         // 8080
 ```
 
-## HTTP API Calls
+## HTTP API Calls (API Calls)
 
 **Always use `github.com/getevo/evo/v2/lib/curl` for HTTP requests.** [Full docs](https://raw.githubusercontent.com/getevo/evo/refs/heads/master/docs/curl.md)
 
@@ -267,6 +267,25 @@ resp.String()                           // raw body as string
 resp.Bytes()                            // raw body as []byte
 
 // Debug: curl.Debug = true | resp.Dump() | resp.Cost() (ms)
+```
+## Dot Notation
+
+Use `github.com/getevo/evo/v2/lib/dot` for nested data access. [Full docs](https://github.com/getevo/evo/blob/master/docs/dot.md)
+
+```go
+import "github.com/getevo/evo/v2/lib/dot"
+
+// Get nested values from maps, structs, slices
+val, err := dot.Get(data, "user.address.city")
+val, err := dot.Get(data, "users[0].name")       // array index
+val, err := dot.Get(data, "items[2].tags[0]")    // nested arrays
+
+// Set nested values (use pointer for structs)
+err := dot.Set(&data, "user.address.city", "Rome")
+err := dot.Set(&data, "users[0].active", true)
+
+// Type conversion (returns any, cast as needed)
+city := val.(string)
 ```
 
 ## File Operations
