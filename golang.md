@@ -181,6 +181,7 @@ func (c Ctrl) Create(r *evo.Request) any {
  ## outcome                                                                                                                                                                                                                                                                                                                             `github.com/getevo/v2/lib/outcome` — HTTP response builder for evo handlers.     
 Constructors (all accept optional any, auto-marshaled):
 `OK`, `Created`, `NoContent`, `BadRequest`, `UnAuthorized`, `NotFound`, `InternalServerError`, `Json`, `Text`, `Html`, `Redirect`
+
 Chainable methods: `.Status(code)`, `.Header(k,v)`, `.Cookie(k,v,ttl)`, `.Error(msg,code)`, `.Filename(n)`, `.SetCacheControl(dur)`
 ```go
   import "github.com/getevo/v2/lib/outcome"
@@ -189,7 +190,7 @@ Chainable methods: `.Status(code)`, `.Header(k,v)`, `.Cookie(k,v,ttl)`, `.Error(
       if err != nil {
           return outcome.NotFound("not found")
       }
-      return outcome.OK(user)
+      return outcome.OK(user).Header("x-custom-header","some-text")
   }
 
   // custom output with manual serializaiton
@@ -203,7 +204,7 @@ Chainable methods: `.Status(code)`, `.Header(k,v)`, `.Cookie(k,v,ttl)`, `.Error(
           ContentType: "application/json",
           StatusCode:  200,
           Data:        data,
-     }
+     }.Header("x-custom-header","some-text")
   }
 ```
 ---
