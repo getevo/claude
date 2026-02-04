@@ -178,7 +178,34 @@ func (c Ctrl) Create(r *evo.Request) any {
     return outcome.Created(res)
 }
 ```
+ ## outcome                                                                                                                                                                                                                                                                                                                             `github.com/getevo/v2/lib/outcome` — HTTP response builder for evo handlers.     
+Constructors (all accept optional any, auto-marshaled):
+`OK`, `Created`, `NoContent`, `BadRequest`, `UnAuthorized`, `NotFound`, `InternalServerError`, `Json`, `Text`, `Html`, `Redirect`
+Chainable methods: `.Status(code)`, `.Header(k,v)`, `.Cookie(k,v,ttl)`, `.Error(msg,code)`, `.Filename(n)`, `.SetCacheControl(dur)`
+```go
+  import "github.com/getevo/v2/lib/outcome"
+  func GetUser(r *evo.Request) any {
+      user, err := db.Find(r.Param("id"))
+      if err != nil {
+          return outcome.NotFound("not found")
+      }
+      return outcome.OK(user)
+  }
 
+  // custom output with manual serializaiton
+  func GetUser2(r *evo.Request) any {
+      user, err := db.Find(r.Param("id"))
+      if err != nil {
+          return outcome.NotFound("not found")
+      }
+      data, _ := json.Marshal(a)
+      return outcome.Response{
+          ContentType: "application/json",
+          StatusCode:  200,
+          Data:        data,
+     }
+  }
+```
 ---
 
 ## Context & Transactions
