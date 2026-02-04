@@ -1,0 +1,44 @@
+Database:
+  Type: mysql
+  Server: 127.0.0.1:3306
+  Database: "db_name"
+  Username: "username"
+  Password: "mysql_password"
+  Cache: "false"
+  ConnMaxLifTime: 1h
+  Debug: "3"
+  Enabled: true
+  MaxIdleConns: "10"
+  MaxOpenConns: "100"
+  Params: "parseTime=true"
+  SSLMode: false
+  SlowQueryThreshold: 500ms
+
+
+HTTP:
+  Host: 0.0.0.0
+  Port: 8041
+  ServerHeader: EVO
+  BodyLimit: 10mb
+  ProxyHeader: X-Forwarded-For
+  CaseSensitive: false
+  CompressedFileSuffix: .evo.gz
+  Concurrency: 1024
+  DisableDefaultContentType: false
+  DisableDefaultDate: false
+  DisableHeaderNormalizing: false
+  DisableKeepalive: false
+  ETag: false
+  GETOnly: false
+  IdleTimeout: 0
+  Immutable: false
+  Network: ""
+  Prefork: false
+  ReadBufferSize: 10mb
+  ReadTimeout: 1s
+  ReduceMemoryUsage: false
+  StrictRouting: false
+  UnescapePath: false
+  EnablePrintRoutes: false
+  WriteBufferSize: 4kb
+  WriteTimeout: 5s
