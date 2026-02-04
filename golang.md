@@ -21,7 +21,7 @@ cmd/app/main.go                    # Entrypoint
 apps/app_name/{app,models,controller,functions,serializer}.go
 pkg/                           # Shared packages
 docs/                              # Documentation
-config.yml
+config.yml (example: https://raw.githubusercontent.com/getevo/claude/refs/heads/main/config.example.yml)
 ```
 
 ## Config & Logging
@@ -29,12 +29,14 @@ config.yml
 settings.Get("DATABASE.HOST").String()  // .Int() .Bool() .Duration() .SizeInBytes()
 log.Info("msg") / log.Debug() / log.Warning() / log.Error() / log.Fatal()
 ```
+
+
+
 ```bash
 ./backend                        # config.yml default
-./backend -c /path/to/config     # custom config (config.yml example from https://raw.githubusercontent.com/getevo/claude/refs/heads/main/config.example.yml)
+./backend -c /path/to/config     # custom config
 ./backend --migration-do         # migrations
 ```
-
 ---
 
 ## App Template
