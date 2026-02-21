@@ -1,7 +1,7 @@
 # CLAUDE.md - Golang Project Guidelines
 
 ## Stack
-`github.com/getevo/evo/v2` | `gorm.io/gorm` | `github.com/getevo/restify` | MariaDB | NATS + JetStream | REDIS
+`github.com/getevo/evo/v2` | `gorm.io/gorm` | `github.com/getevo/restify`
 
 ## Core Imports
 | Alias | Import |
